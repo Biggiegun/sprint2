@@ -15,8 +15,8 @@ export default class AppRouter extends Component {
             <Router>
                 <Switch>
                     <Route exact path="/registro" component={Registro}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/" component={MainContainer}/>
+                    <Route exact path="/" component={Login}/>
+                    <Route exact path="/main" component={MainContainer}/>
                 </Switch>
             </Router>
         )

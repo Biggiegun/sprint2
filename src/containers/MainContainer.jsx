@@ -1,94 +1,60 @@
 //Code here
 import React, { Component } from "react";
 import Cards from "../components/Cards";
-import Login from "../components/Login";
+import { Navbar } from "../components/Navbar";
 import {Link} from 'react-router-dom'
 
-const url = "https://api-sprint2.herokuapp.com/movie";
+const url = "https://www.omdbapi.com/?i=tt3896198&apikey=3c86e97";
 
 export default class MainContainer extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      film: [],
-      search: '',
+      peli: [],
+      searchTerm: 'Batman',
+      error:''
     };
   }
 
   async componentDidMount() {
-    const resp = await fetch(url);
-    const data = await resp.json();
-    console.log(data);
-    this.setState({ film: data });
-    console.log(this.state.film);
+    const res = await fetch(`${url}&s=${this.state.searchTerm}`);
+    const {Search} = await res.json();
+    this.setState({ peli: Search });
+    console.log(this.state.peli);
   }
 
   render() {
 
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      const res = await fetch(`${url}&s=${this.state.searchTerm}`)
+      const { Search } = await res.json()
+      this.setState({ peli: Search })
+      console.log(this.state.peli)
+  }
+
+    const buscar = (<form className="d-flex justify-content-end" onSubmit = {handleSubmit}>
+    <input
+      className="form-control me-sm-2 bg-light"
+      type="text"
+      name="searchTerm"
+      placeholder="Busca tu película favorita"
+      onChange = {(e)=>this.setState({searchTerm:e.target.value})}
+      value={this.state.searchTerm}
+    />
+    <p className="btn btn-warning my-2 my-sm-0">🔍</p>
+  </form>)
+
     return (
       <div>
-       <div>
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid">
-              <Link className="navbar-brand" to="/">
-                <img src="https://res.cloudinary.com/biggiegun/image/upload/v1630781079/APISprint2/logoBlockbuster_aidxa9.png" alt="Logo Blockbuster" />
-              </Link>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarColor02"
-                aria-controls="navbarColor02"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarColor02">
-                <ul className="navbar-nav me-auto">
-                  <li className="nav-item">
-                    <a className="nav-link" href="/">
-                      Todas
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/">
-                      Más Valoradas
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/">
-                      Menos Valoradas
-                    </a>
-                  </li>
-                  <form className="d-flex justify-content-end">
-                    <input
-                      className="form-control me-sm-2 bg-light"
-                      type="text"
-                      name="search"
-                      placeholder="Busca tu película favorita"
-                    />
-                    <button className="btn btn-warning my-2 my-sm-0">🔍</button>
-                  </form>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Login 
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/registro">
-                      Registro 
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
+        <Navbar form= {buscar}/>
         <div>
-          {this.state.film.map((datos, index) => {
-            return <Cards key={index} peliculas={datos}/>;
-          })}
+          {this.state.peli.map((movie, index) => {
+            return (
+            <Cards key={index} data={movie}/>
+            )
+          }
+          )}
         </div>
       </div>
     );

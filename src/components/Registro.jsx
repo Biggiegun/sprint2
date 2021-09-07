@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import md5 from 'md5'
 import uuid from 'react-uuid' // genera id aleatorio!!
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 const url = "https://api-sprint2.herokuapp.com/usuario";
 
@@ -17,7 +17,8 @@ export default class Registro extends Component {
                 apellido_materno: '',
                 nombre: '',
                 username: '',
-                password: ''
+                password: '',
+                access: false
             }
         }
     }
@@ -47,6 +48,7 @@ export default class Registro extends Component {
         })
         .then(respuesta => {
             alert('Usuario Registrado')
+            this.setState({form:{access:true}})
         }).catch(error => {
             console.log(error)
         })
@@ -124,12 +126,13 @@ export default class Registro extends Component {
                     </button>
                     <br />
                     <Link
-                        to="/login"
+                        to="/"
                         className="link"
                     >
                         Already registered?
                     </Link>
                 </form>
+                {this.state.form.access && <Redirect to="/main" />}
             </div>
 
         )

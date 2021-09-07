@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import md5 from 'md5'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 const url = "https://api-sprint2.herokuapp.com/usuario";
 
@@ -11,7 +11,8 @@ export default class Login extends Component {
         this.state = {
             form: {
                 username: "",
-                password:""
+                password:"",
+                access: false
             }
         }
     }
@@ -27,14 +28,15 @@ export default class Login extends Component {
     }
 
     iniciarSesion = async () =>{
-        await axios.get(url, {parameters:{username:this.state.form.username, password:md5(this.state.form.password)}})
-        .then(respuesta=>{ 
-            return respuesta.data
+        await axios.get(url, {params:{username:this.state.form.username, password:md5(this.state.form.password)}})
+        .then(response=>{ 
+            return response.data
             })
-        .then(respuesta=>{
-            if(respuesta.length>0){
-                let traer = respuesta[0];
-                alert (`Bienvenido ${traer.nombre} ${traer.apellido_paterno}`);
+        .then(response=>{
+            if(response.length>0){
+                let respuesta = response[0];
+                alert (`Bienvenido ${respuesta.nombre} ${respuesta.apellido_paterno}`);
+                this.setState({form:{access:true}})
             }else{
                 alert('El usuario y/o la contraseña no son correctos');
             }
@@ -44,6 +46,7 @@ export default class Login extends Component {
 
     handleSubmit = (e) =>{
         e.preventDefault();
+        this.iniciarSesion();
     }
 
     render() {
@@ -78,7 +81,7 @@ export default class Login extends Component {
                     <button
                         type="submit"
                         className="btn btn-primary btn-block"
-                        onClick={()=> this.iniciarSesion()}
+                        
                     >
                         Login
                     </button>
@@ -102,6 +105,7 @@ export default class Login extends Component {
                         Create new account
                     </Link>
                 </form>
+                {this.state.form.access && <Redirect to="/main" />}
             </div>
             </div>
         )
