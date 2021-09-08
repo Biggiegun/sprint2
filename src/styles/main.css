@@ -2,7 +2,7 @@
     width: 80%;
     max-width: 330px;
     padding: 10px;
-    margin: auto;
+    margin: 3em auto;
   }
   
   .form-signin .form-control {
@@ -92,3 +92,31 @@
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     }
+  .input1{
+    background-color: white;
+    width: 100%;
+    margin: 0.5em;
+    color: black;
+    border-radius: 0.5em;
+  }
+  .btnLogin{
+    background-color: dodgerblue;
+    color:white;
+    border-radius: 0.5em;
+    justify-content: center;
+    margin: 1em 0.5em;
+    width: 40%;
+  }
+ .carContainer{
+   display: flex;
+   margin: auto;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+ }
+ .card{
+   margin: 1em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }

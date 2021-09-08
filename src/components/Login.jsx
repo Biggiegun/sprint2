@@ -62,7 +62,7 @@ export default class Login extends Component {
                         type="username"
                         id="inputUsername"
                         name="username"
-                        className="form-control mt-1"
+                        className="input1"
                         placeholder="username"
                         required=""
                         onChange={this.handleChange}
@@ -72,7 +72,7 @@ export default class Login extends Component {
                         type="Password"
                         id="inputPassword"
                         name="password"
-                        className="form-control mt-1"
+                        className="input1"
                         placeholder="Contraseña"
                         required=""
                         onChange={this.handleChange}
@@ -80,7 +80,7 @@ export default class Login extends Component {
 
                     <button
                         type="submit"
-                        className="btn btn-primary btn-block"
+                        className="btnLogin"
                         
                     >
                         Login

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 export const Navbar = (props) => {
     return (
         <div>
@@ -38,9 +39,9 @@ export const Navbar = (props) => {
                     </a>
                   </li>
                 </ul>
-                <li>
+                <p>
                     {props.form}
-                </li>
+                </p>
               </div>
             </div>
           </nav> 

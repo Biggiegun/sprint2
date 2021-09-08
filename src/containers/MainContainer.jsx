@@ -48,7 +48,7 @@ export default class MainContainer extends Component {
     return (
       <div>
         <Navbar form= {buscar}/>
-        <div>
+        <div className="carContainer">
           {this.state.peli.map((movie, index) => {
             return (
             <Cards key={index} data={movie}/>

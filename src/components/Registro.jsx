@@ -3,8 +3,8 @@ import axios from 'axios'
 import md5 from 'md5'
 import uuid from 'react-uuid' // genera id aleatorio!!
 import {Link, Redirect} from 'react-router-dom'
-
-const url = "https://api-sprint2.herokuapp.com/usuario";
+import '../styles/main.css'
+const url = "https://api-sprint2.herokuapp.com/usuario/";
 
 export default class Registro extends Component {
     constructor(){
@@ -17,9 +17,9 @@ export default class Registro extends Component {
                 apellido_materno: '',
                 nombre: '',
                 username: '',
-                password: '',
-                access: false
-            }
+                password: ''
+            },
+            access: false
         }
     }
 
@@ -48,16 +48,21 @@ export default class Registro extends Component {
         })
         .then(respuesta => {
             alert('Usuario Registrado')
-            this.setState({form:{access:true}})
+            this.setState({access:true})
+
         }).catch(error => {
             console.log(error)
         })
+
+            await axios.get(url)
+            .then(respuesta => localStorage.setItem('Registro usuario', JSON.stringify(respuesta.data)))               
+            
     }
 
     render() {
         return (
           <div className="Registro py-5 container text-center">
-                <form className="form-signin" onSubmit={this.handleSutmit}>
+                <form className="form-signin" onSubmit={this.handleSubmit}>
                     <h1 className="h3 mb-3 font-weight-normal">
                         ¡Registrate en nuestro sistema!
                     </h1>
@@ -74,7 +79,7 @@ export default class Registro extends Component {
                         type="text"
                         placeholder="Apellido paterno"
                         name="apellido_paterno"
-                        className="form-control"
+                        className="input1"
                         autoComplete="off"
                         required=""
                         onChange={this.handleChange}
@@ -85,7 +90,7 @@ export default class Registro extends Component {
                         type="text"
                         placeholder="Apellido materno"
                         name="apellido_materno"
-                        className="form-control"
+                        className="input1"
                         autoComplete="off"
                         required=""
                         onChange={this.handleChange}
@@ -94,7 +99,7 @@ export default class Registro extends Component {
                     <input
                         type="text"
                         name="nombre"
-                        className="form-control"
+                        className="input1"
                         placeholder="nombre"
                         required=""
                         onChange={this.handleChange}
@@ -103,7 +108,7 @@ export default class Registro extends Component {
                     <input
                         type="email"
                         name="username"
-                        className="form-control"
+                        className="input1"
                         placeholder="Email"
                         required=""
                         onChange={this.handleChange}
@@ -112,7 +117,7 @@ export default class Registro extends Component {
                     <input
                         type="Password"
                         name="password"
-                        className="form-control"
+                        className="input1"
                         placeholder="Password"
                         required=""
                         onChange={this.handleChange}
@@ -121,6 +126,7 @@ export default class Registro extends Component {
                     <button
                         type="submit"
                         className="btn btn-primary btn-block mb-1"
+                        onClick={()=>this.RegistroUsuario()}
                     >
                         Register
                     </button>
@@ -132,7 +138,7 @@ export default class Registro extends Component {
                         Already registered?
                     </Link>
                 </form>
-                {this.state.form.access && <Redirect to="/main" />}
+                {this.state.access && <Redirect to="/main" />}
             </div>
 
         )
