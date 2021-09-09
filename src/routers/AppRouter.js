@@ -8,6 +8,7 @@ import {BrowserRouter as Router,
 import Registro from '../components/Registro'
 import Login from '../components/Login'
 import MainContainer from '../containers/MainContainer'
+import UpdateDelete from '../components/UpdateDelete'
 
 export default class AppRouter extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class AppRouter extends Component {
                     <Route exact path="/registro" component={Registro}/>
                     <Route exact path="/" component={Login}/>
                     <Route exact path="/main" component={MainContainer}/>
+                    <Route exact path="/usuario" component={UpdateDelete}/>
                 </Switch>
             </Router>
         )

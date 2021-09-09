@@ -38,6 +38,11 @@ export const Navbar = (props) => {
                       Menos Valoradas
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/usuario">
+                    👤 Usuario
+                    </Link>
+                  </li>
                 </ul>
                 <p>
                     {props.form}

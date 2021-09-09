@@ -6,9 +6,9 @@ import {Link, Redirect} from 'react-router-dom'
 import '../styles/main.css'
 const url = "https://api-sprint2.herokuapp.com/usuario/";
 
-export default class Registro extends Component {
-    constructor(){
-        super()
+export default class Registro extends Component  {
+        constructor(){
+        super();
         this.state = {
             data: [],
             form: {
