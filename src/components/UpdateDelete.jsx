@@ -9,7 +9,7 @@ const UpdateDelete = () => {
     const [state, setState] = useState([])
     const [form, setform] = useState({id:'',nombre:'',apellido_paterno:'',apellido_materno:'',username: ''})
     const [modal, setModal] = useState(false)    
-    
+    const [modaldelete, setmodaldelete] = useState(false)
 
    
  useEffect(() => {
@@ -60,6 +60,16 @@ const UpdateDelete = () => {
         })
     }
 
+    const peticionDelete = async () => {
+        await axios.delete(url+form.id)
+        .then(response => {
+            setmodaldelete({modaldelete:false});
+            peticionGet();
+        }).catch(error => {
+            console.log(error.message);
+        })
+    }
+
     return (
             <div>
             <button onClick={() => modalInsertar()}>Cargar Modal</button>
@@ -74,7 +84,7 @@ const UpdateDelete = () => {
                     <p>{valor.username}</p>
                     <br/>
                     <button onClick={()=>seleccionUsuario(valor)}>Editar</button>
-                    <button>Eliminar</button>
+                    <button onClick={()=>{seleccionUsuario(valor); setmodaldelete({modaldelete:true})}}>Eliminar</button>
 
                     </div>
                     )}
@@ -119,6 +129,18 @@ const UpdateDelete = () => {
                            >
                             Cancelar
                         </button>
+                    </ModalFooter>
+                </Modal>
+
+                <Modal isOpen={modaldelete}>
+                    <ModalBody>
+                        Está seguro de eliminar el usuario {form && form.nombre}
+                    </ModalBody>
+                    <ModalFooter>
+                        <button 
+                       onClick={() => peticionDelete()}>Sí</button>
+                        <button 
+                       onClick={() => setmodaldelete({modaldelete:false})}>No</button>
                     </ModalFooter>
                 </Modal>
             </div>
