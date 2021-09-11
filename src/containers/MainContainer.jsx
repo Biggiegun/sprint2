@@ -4,22 +4,22 @@ import Cards from "../components/Cards";
 import { Navbar } from "../components/Navbar";
 import {Link} from 'react-router-dom'
 
-const url = "https://www.omdbapi.com/?i=tt3896198&apikey=3c86e97";
+const url = "https://api-sprint2.herokuapp.com/movie/";
 
 export default class MainContainer extends Component {
   constructor() {
     super()
     this.state = {
       peli: [],
-      searchTerm: 'Batman',
+      searchTerm: '',
       error:''
     };
   }
 
   async componentDidMount() {
-    const res = await fetch(`${url}&s=${this.state.searchTerm}`);
-    const {Search} = await res.json();
-    this.setState({ peli: Search });
+    const res = await fetch(url);
+    const data = await res.json();
+    this.setState({ peli: data });
     console.log(this.state.peli);
   }
 
@@ -27,10 +27,18 @@ export default class MainContainer extends Component {
 
     const handleSubmit = async (e) => {
       e.preventDefault()
-      const res = await fetch(`${url}&s=${this.state.searchTerm}`)
-      const { Search } = await res.json()
-      this.setState({ peli: Search })
+      if(this.state.searchTerm===''){
+        const res = await fetch(url)
+        const data = await res.json()
+        this.setState({ peli: data })
+        console.log(this.state.peli)
+      }else{
+      const res = await fetch(`${url}?titulo=${this.state.searchTerm}`)
+      const data = await res.json()
+      this.setState({ peli: data })
       console.log(this.state.peli)
+      
+    }
   }
 
     const buscar = (<form className="d-flex justify-content-end" onSubmit = {handleSubmit}>
@@ -42,7 +50,7 @@ export default class MainContainer extends Component {
       onChange = {(e)=>this.setState({searchTerm:e.target.value})}
       value={this.state.searchTerm}
     />
-    <p className="btn btn-warning my-2 my-sm-0">🔍</p>
+    <button className="btn btn-warning my-2 my-sm-0">🔍</button>
   </form>)
 
     return (
