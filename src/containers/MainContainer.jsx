@@ -12,7 +12,7 @@ export default class MainContainer extends Component {
     this.state = {
       peli: [],
       searchTerm: "",
-      error: "",
+      error: false,
     };
   }
 
@@ -28,12 +28,14 @@ export default class MainContainer extends Component {
       const res = await fetch(url);
       const data = await res.json();
       this.setState({ peli: data });
+      this.setState({error:false});
     };
 
     const menosValoradas = async () => {
       const res = await fetch(`${url}?calificación_gte=0&calificación_lte=7`);
       const data = await res.json();
       this.setState({ peli: data });
+      this.setState({error:false});
     };
 
     const masValoradas = async () => {
@@ -42,6 +44,7 @@ export default class MainContainer extends Component {
       );
       const data = await res.json();
       this.setState({ peli: data });
+      this.setState({error:false});
     };
 
     const handleSubmit = async (e) => {
@@ -50,15 +53,17 @@ export default class MainContainer extends Component {
         const res = await fetch(url);
         const data = await res.json();
         this.setState({ peli: data });
+        this.setState({error:false});
         console.log(this.state.peli);
+
       } else {
         const res = await fetch(`${url}?titulo=${this.state.searchTerm}`);
         const data = await res.json();
         this.setState({ peli: data });
         console.log(this.state.peli);
         if (!this.state.peli.length) {
-          alert("La película no existe!!");
-          // this.componentDidMount()
+          this.setState({error:true});
+          return
         }
       }
     };
@@ -87,6 +92,14 @@ export default class MainContainer extends Component {
         />
 
         <div className="carContainer">
+          <div>
+            {this.state.error && 
+            <div>
+            <img src="https://res.cloudinary.com/biggiegun/image/upload/v1631536135/APISprint2/noResults_kuvjqy.png" alt="Película no Encantrada !!" />
+            <h3>No se encontraron resultados para "{this.state.searchTerm}"</h3>
+            </div>
+            }
+          </div>
           {this.state.peli.map((movie, index) => {
             return <Cards key={index} data={movie} />;
           })}
