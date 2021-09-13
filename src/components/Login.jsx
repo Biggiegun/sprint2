@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import md5 from 'md5'
 import {Link, Redirect} from 'react-router-dom'
+import "bootswatch/dist/darkly/bootstrap.min.css";
 
 const url = "https://api-sprint2.herokuapp.com/usuario";
 
@@ -83,18 +84,18 @@ export default class Login extends Component {
                         className="btnLogin"
                         
                     >
-                        Login
+                        Iniciar Sesión
                     </button>
 
                     <div className="">
-                        <p>Login with social networks</p>
+                        <p>Loggearse con redes sociales</p>
 
                         <div className="google-btn btn-primary">
                             <div className="google-icon-wrapper">
                                 <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
                             </div>
                             <p className="btn-text">
-                                <b>Sign in with google</b>
+                                <b>Inicar sesión con google</b>
                             </p>
                         </div>
                     </div>
@@ -102,7 +103,7 @@ export default class Login extends Component {
                         to="/registro"
                         className="Link"
                        >
-                        Create new account
+                        Crear nueva cuenta
                     </Link>
                 </form>
                 {this.state.form.access && <Redirect to="/main" />}

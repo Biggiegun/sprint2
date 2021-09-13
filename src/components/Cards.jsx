@@ -1,34 +1,30 @@
 // Code here
 import React, { Component } from "react";
-import "bootswatch/dist/darkly/bootstrap.min.css";
+import "../styles/main.css"
 import { Modal, ModalBody, ModalFooter} from "reactstrap";
-import "../styles/main.css";
+//import "../styles/main.css";
 export default class Cards extends Component {
   constructor() {
     super();
     this.state = {
-      modal: false
+      modal: false,
+      modal2: false
     }
   }
   render() {
-    const { titulo, imagen, lanzamiento, calificación, descripción, director } = this.props.data;
+    const { titulo, imagen, lanzamiento, calificación, descripción, director, corto } = this.props.data;
 
     const openModal = () => this.setState({modal:!this.state.modal});
-
+    const openTrailer = () => this.setState({modal2:!this.state.modal2});
+    
     return (
       <div>
-        <div className="card">
-          <button
-            className="card"
-            onClick={() => {
+        <div className="card" onClick={() => {
               openModal();
-            }}
-          >
-            <img src={imagen} alt="Película" width="350" height="350" />
-          </button>
-          <h4>{titulo}</h4>
-          <p>{lanzamiento}</p>
-          <p>🌟 {calificación}</p>
+            }}>
+         
+            <img src={imagen} alt="Película" width="300" height="400" />
+          <p id="calificación">🌟 {calificación.toFixed(1)}</p>
         </div>
 
         <Modal isOpen={this.state.modal}>
@@ -44,7 +40,18 @@ export default class Cards extends Component {
             <button className="btn btn-primary" onClick={() => openModal()}>
               Volver al listado
             </button>
+            <button className="btn btn-primary" onClick={()=>openTrailer()}>
+              Ver trailer
+            </button>
           </ModalFooter>
+        </Modal>
+        <Modal isOpen={this.state.modal2}>
+        <iframe width="560" height="315" src={corto} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <ModalFooter>
+        <button className="btn btn-primary" onClick={()=>openTrailer()}>
+              Cerrar
+            </button>
+            </ModalFooter>
         </Modal>
       </div>
     );

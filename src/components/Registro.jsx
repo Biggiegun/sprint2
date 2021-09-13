@@ -3,7 +3,8 @@ import axios from 'axios'
 import md5 from 'md5'
 import uuid from 'react-uuid' // genera id aleatorio!!
 import {Link, Redirect} from 'react-router-dom'
-import '../styles/main.css'
+import "bootswatch/dist/darkly/bootstrap.min.css";
+
 const url = "https://api-sprint2.herokuapp.com/usuario/";
 
 export default class Registro extends Component  {

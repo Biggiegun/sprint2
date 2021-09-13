@@ -2,7 +2,8 @@
 import React, { Component } from "react";
 import Cards from "../components/Cards";
 import { Navbar } from "../components/Navbar";
-import { Link } from "react-router-dom";
+import Banner from "../components/Banner";
+
 
 const url = "https://api-sprint2.herokuapp.com/movie/";
 
@@ -13,6 +14,7 @@ export default class MainContainer extends Component {
       peli: [],
       searchTerm: "",
       error: false,
+      title: "Todas Las películas"
     };
   }
 
@@ -29,6 +31,7 @@ export default class MainContainer extends Component {
       const data = await res.json();
       this.setState({ peli: data });
       this.setState({error:false});
+      this.setState({title:"Todas Las Películas"});
     };
 
     const menosValoradas = async () => {
@@ -36,6 +39,7 @@ export default class MainContainer extends Component {
       const data = await res.json();
       this.setState({ peli: data });
       this.setState({error:false});
+      this.setState({title:"Menos Valoradas"});
     };
 
     const masValoradas = async () => {
@@ -45,6 +49,7 @@ export default class MainContainer extends Component {
       const data = await res.json();
       this.setState({ peli: data });
       this.setState({error:false});
+      this.setState({title:"Más Valoradas"});
     };
 
     const handleSubmit = async (e) => {
@@ -90,7 +95,8 @@ export default class MainContainer extends Component {
           mas={masValoradas}
           todas={todas}
         />
-
+        <Banner/>
+        <div id="tituloPeliculas">{this.state.title}</div>
         <div className="carContainer">
           <div>
             {this.state.error && 
