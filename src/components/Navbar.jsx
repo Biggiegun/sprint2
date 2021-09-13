@@ -24,17 +24,17 @@ export const Navbar = (props) => {
               <div className="collapse navbar-collapse" id="navbarColor02">
                 <ul className="navbar-nav me-auto">
                   <li className="nav-item">
-                    <Link className="nav-link" to="/main">
+                    <a className="nav-link" href="#" onClick={props.todas}>
                       Todas
-                    </Link>
+                    </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">
+                    <a className="nav-link" href="#" onClick={props.mas}>
                       Más Valoradas
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">
+                    <a className="nav-link" href="#" onClick={props.menos}>
                       Menos Valoradas
                     </a>
                   </li>
