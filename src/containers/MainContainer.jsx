@@ -59,6 +59,7 @@ export default class MainContainer extends Component {
         const data = await res.json();
         this.setState({ peli: data });
         this.setState({error:false});
+        this.setState({title:"Todas Las Películas"})
         console.log(this.state.peli);
 
       } else {
@@ -68,6 +69,7 @@ export default class MainContainer extends Component {
         console.log(this.state.peli);
         if (!this.state.peli.length) {
           this.setState({error:true});
+          this.setState({title:""});
           return
         }
       }

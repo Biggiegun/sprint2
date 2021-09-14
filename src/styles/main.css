@@ -143,3 +143,33 @@ font-size: 48px;
 line-height: 58px;
 margin: 48px 0px;
 }
+#usuarios{
+  text-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.botonCRUD{
+  border-radius: 0.5em;
+  background-color: dodgerblue;
+  color: white;
+}
+#cerrar{
+  display: flex;
+  justify-content: end;
+}
+#equis{
+  cursor: pointer;
+  margin: 0em 0.15em;
+  font-size: large;
+}
+#imgDetalle{
+  border-radius: 9.78169px;
+  transform: matrix(0.71, -0.41, 0.22, 0.71, 0, 0);
+  margin-bottom: 0.8em;
+}
+#infoContainer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

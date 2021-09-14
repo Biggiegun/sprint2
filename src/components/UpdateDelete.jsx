@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import '../styles/main.css'
+import {Link} from 'react-router-dom'
 
 const url = "https://api-sprint2.herokuapp.com/usuario/";
 
@@ -20,8 +22,11 @@ const UpdateDelete = () => {
         setModal(!modal) // cambio de valor para el modalInsertar
     }
 
+    const modalDelete = () =>{
+        setmodaldelete(!modaldelete)
+    }
+
     const seleccionUsuario = (valor) =>{
-        modalInsertar();
         setform({
            id: valor.id,
            nombre: valor.nombre,
@@ -71,20 +76,21 @@ const UpdateDelete = () => {
     }
 
     return (
-            <div>
-            <button onClick={() => modalInsertar()}>Cargar Modal</button>
+            <div id="usuarios">
+                <div>
+                <Link to="/main"><img src="https://res.cloudinary.com/biggiegun/image/upload/v1630781079/APISprint2/logoBlockbuster_aidxa9.png" alt="Ir a Home" /></Link>
                 <h3>Datos de usuario</h3>
                 {state.map((valor)=>{
                 return(
                     <div key={valor.id}>
-                    <p>{valor.id}</p>
-                    <p>{valor.nombre}</p>
-                    <p>{valor.apellido_paterno}</p>
-                    <p>{valor.apellido_materno}</p>
-                    <p>{valor.username}</p>
+                    <p>ID: {valor.id}</p>
+                    <p>Nombre: {valor.nombre}</p>
+                    <p>Apellido Paterno: {valor.apellido_paterno}</p>
+                    <p>Apellido Materno: {valor.apellido_materno}</p>
+                    <p>Username: {valor.username}</p>
                     <br/>
-                    <button onClick={()=>seleccionUsuario(valor)}>Editar</button>
-                    <button onClick={()=>{seleccionUsuario(valor); setmodaldelete({modaldelete:true})}}>Eliminar</button>
+                    <button className="botonCRUD" onClick={()=>{seleccionUsuario(valor); modalInsertar()}}>Editar</button>
+                    <button className="botonCRUD" onClick={()=>{seleccionUsuario(valor); modalDelete()}}>Eliminar</button>
 
                     </div>
                     )}
@@ -138,11 +144,12 @@ const UpdateDelete = () => {
                     </ModalBody>
                     <ModalFooter>
                         <button 
-                       onClick={() => peticionDelete()}>Sí</button>
+                       onClick={() => {peticionDelete(); modalDelete()}}>Sí</button>
                         <button 
-                       onClick={() => setmodaldelete({modaldelete:false})}>No</button>
+                       onClick={() => {setmodaldelete({modaldelete:false}); modalDelete()}}>No</button>
                     </ModalFooter>
                 </Modal>
+                </div>
             </div>
        
     )
